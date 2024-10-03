@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Marília - Yaso</title>
+    <link rel="stylesheet" href="marilia.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="navbar-inner">
+                <ul>
+                    <li><a href="#"><img src="src/images/logoroxa.png" alt="Yaso" class="logo"></a></li>
+                    <li><a href="index.html">Sobre o Yaso</a></li>
+                    <li><a href="#">Médicos</a></li>
+                    <li><a href="#">Empresas</a></li>
+                    <li><a href="#"><input type="text" placeholder="Buscar" class="search-bar"></a></li>
+                    <li><a href="#" class="profile-link">
+                        <img src="src/images/marilia.jpg" alt="Dra. Marília" class="profile-pic">
+                        Dra. Marília
+                    </a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Perfil Section -->
+    <section class="profile-section">
+        <h1>Perfil Yaso</h1>
+        <div class="profile-header">
+            <img src="src/images/marilia.jpg" alt="Marília Clímeni" class="profile-img">
+            <div class="profile-info">
+                <h2>Marília Clímeni</h2>
+                <p>Y12.34.56.78900</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ornare cursus odio non egestas. Proin vehicula augue sed tristique. Maecenas nec placerat enim.</p>
+            </div>
+        </div>
+
+        <section class="consultas-section">
+            <h2>Últimas consultas</h2>
+            <div class="consultas-list">
+                <div class="consulta-item">
+                    <span>02/10/2024</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ornare cursus odio non egestas. Praesent id orci purus.</p>
+                    <a href="#">ver ficha completa</a>
+                </div>
+                <div class="consulta-item">
+                    <span>02/10/2024</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ornare cursus odio non egestas. Praesent id orci purus.</p>
+                    <a href="#">ver ficha completa</a>
+                </div>
+                <div class="consulta-item">
+                    <span>02/10/2024</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ornare cursus odio non egestas. Praesent id orci purus.</p>
+                    <a href="#">ver ficha completa</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pop-up oculto inicialmente -->
+        <div id="popup" class="popup-overlay">
+            <div class="popup-content">
+                <span class="close-popup" onclick="closePopup()">×</span>
+                <div class="popup-icon">
+                    <img src="src/images/check.png" alt="Check">
+                </div>
+                <h2>Acesso solicitado</h2>
+                <p>Aguardando autorização do usuário.</p>
+                <p>ou</p>
+                <button class="token-button" onclick="inserirToken()">inserir token</button>
+            </div>
+        </div>
+
+        <section class="exames-section">
+            <h2>Exames recentes</h2>
+            <div class="exame-item">
+                <span>02/10/2024</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ornare cursus odio non egestas.</p>
+                <button class="solicitar-acesso" onclick="solicitarAcesso()">solicitar acesso</button>
+            </div>           
+                <div class="exame-item">
+                    <span>02/10/2024</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ornare cursus odio non egestas. Praesent id orci purus.</p>
+                    <a href="exame.html">solicitar acesso</a>
+                </div>
+                <div class="exame-item">
+                    <span>02/10/2024</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ornare cursus odio non egestas. Praesent id orci purus.</p>
+                    <a href="#">solicitar acesso</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="medicamentos-section">
+            <h2>Medicamentos prescritos</h2>
+            <div class="medicamento-item">
+                <span>Lamotrigina 150mg/dia</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet tincidunt quam.</p>
+                <a href="#">receita médica</a>
+            </div>
+        </section>
+
+        <section class="vacinas-section">
+            <h2>Próximas Vacinas</h2>
+            <p>Não há próximas vacinas previstas nos próximos 90 dias.</p>
+        </section>
+
+        <section class="alergias-section">
+            <h2>Alergias</h2>
+            <p>Não há alergias cadastradas para este paciente.</p>
+        </section>
+
+        <section class="cirurgias-section">
+            <h2>Procedimentos cirúrgicos</h2>
+            <p>Não há procedimentos cirúrgicos cadastrados para este paciente.</p>
+        </section>
+
+        <section class="dados-gerais-section">
+            <h2>Dados gerais</h2>
+            <ul>
+                <li>Contato de emergência: Cintia Romeu 011 98701 3258</li>
+                <li>Plano de saúde: 1234.5678.9012.3456</li>
+                <li>Cartão SUS: 9876.5432.1098.7654</li>
+                <li>Outro item: Descrever aqui</li>
+                <li>Tipo sanguíneo: AB+</li>
+                <li>Restrições: Ex: ONR, Religião, etc</li>
+                <li>CPF: 123.456.789-00</li>
+                <li>RG: 12.3456.789-0</li>
+                <li>Logradouro: Rua Tonelero 280, ap 24</li>
+                <li>Bairro: Vila Ipojuca</li>
+                <li>Cidade: São Paulo</li>
+                <li>Estado: São Paulo</li>
+            </ul>
+        </section>
+    </section>
+
+    <!-- Footer -->
+    <div class="divider-image">
+        <img src="src/images/footer.png" alt="Divisória">
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>Yaso Saúde Digital © 2024 Todos os direitos reservados.</p>
+            <div class="social-icons">
+                <a href="#"><img src="src/icon/twitter.png" alt="X"></a>
+                <a href="#"><img src="src/icon/instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="src/icon/facebook.png" alt="Facebook"></a>
+                <a href="https://youtu.be/Z1GFhgCzrBw?si=0oRoNFsxac531-Ne"><img src="src/icon/youtube.png" alt="Youtube"></a>
+                <a href="https://github.com/RenatoRussano/YASO-IC2024.git"><img src="src/icon/github.png" alt="Github"></a>
+                <a href="https://www.figma.com/proto/ZyVEqYGHFrJyCNAk0Aigaq/Yaso---Nova-vers%C3%A3o?node-id=1-5&node-type=canvas&t=zEGt2DMKv1D8arb5-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1"><img src="src/icon/figma.png" alt="Figma"></a>
+                <a href="https://drive.google.com/file/d/1Jts8BO5N7sjQJia5AzpK5biGhCjoYHYb/view?usp=sharing"><img src="src/icon/document.png" alt="Document"></a>
+                <a href="https://trello.com/invite/b/663487441f2ca036ebe2d8c7/ATTIb3bfd1343e59dfa47cffefddd3263bd26F43D0BB/yaso-saude"><img src="src/icon/trello.png" alt="Trello"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="chamadabanco.js"></script>
+
+</body>
+</html>

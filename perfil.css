@@ -1,0 +1,191 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+    overflow-y: scroll;
+}
+
+/* Navbar */
+.navbar {
+    width: 100%;
+    background-color: #f5f5f5;
+    padding: 20px 0;
+}
+
+.navbar .navbar-inner {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    width: 90px;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.navbar ul li {
+    margin: 0 20px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-bottom 0.3s ease;
+}
+
+/* Imagem circular do perfil da Dra. Marília */
+.profile-link {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border-color: #6030A0;
+    border: 2px;
+}
+
+/* Search Bar Style */
+.search-bar {
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    width: 150px;
+    transition: width 0.4s ease-in-out;
+}
+
+.search-bar:focus {
+    width: 250px;
+}
+
+/* Perfil Section */
+.profile-section {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.profile-section h1 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #6030A0;
+}
+
+.profile-cards {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.profile-card {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    height: 300px;
+    margin: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+}
+
+.profile-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.profile-card h3 {
+    color: #6030A0;
+    font-size: 20px;
+}
+
+.profile-card p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Divider Image */
+.divider-image {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.divider-image img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Footer */
+footer {
+    background-color: #6030A0;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.footer-content p {
+    margin-bottom: 20px;
+}
+
+.social-icons a {
+    margin: 0 10px;
+    display: inline-block;
+}
+
+.social-icons img {
+    width: 30px;
+}
+
+/* Estilizando a barra de rolagem para navegadores Webkit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #6030A0;
+    border-radius: 5px;
+    border: 2px solid #f5f5f5;
+}
+
+/* Para navegadores Firefox */
+html {
+    scrollbar-color: #6030A0 #f5f5f5;
+    scrollbar-width: thin;
+}

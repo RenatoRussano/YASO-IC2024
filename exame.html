@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exame - Yaso</title>
+    <link rel="stylesheet" href="exame.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="navbar-inner">
+                <ul>
+                    <li><a href="#"><img src="src/images/logoroxa.png" alt="Yaso" class="logo"></a></li>
+                    <li><a href="index.html">Sobre o Yaso</a></li>
+                    <li><a href="#">Médicos</a></li>
+                    <li><a href="#">Empresas</a></li>
+                    <li><a href="#"><input type="text" placeholder="Buscar" class="search-bar"></a></li>
+                    <li><a href="#" class="profile-link">
+                        <img src="src/images/marilia.jpg" alt="Dra. Marília" class="profile-pic">
+                        Dra. Marília
+                    </a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Perfil do Paciente -->
+    <section class="profile-section">
+        <h1>Perfil Yaso</h1>
+        <div class="profile-header">
+            <img src="src/images/marilia.jpg" alt="Marília Clímeni" class="profile-img">
+            <div class="profile-info">
+                <h2>Marília Clímeni</h2>
+                <p>Y12.34.56.78900</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ornare cursus odio non egestas. Proin vehicula augue sed tristique.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nome do Exame e Contador -->
+    <section class="exam-section">
+        <h2>Nome do exame</h2>
+        <p>Tempo restante: <span id="timer">15m 0s</span></p>
+        <button id="download-doc" class="download-button">baixar documento completo</button>
+    </section>
+
+    <!-- Resumo do Exame -->
+    <section class="summary-section">
+        <h2>Resumo do exame</h2>
+        <p id="exam-summary">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ornare cursus odio non egestas. Praesent a orci purus. Aenean maximus in nisi vitae efficitur.
+        </p>
+    </section>
+
+    <!-- Laudo -->
+    <section class="laudo-section">
+        <h2>Laudo</h2>
+        <p id="exam-laudo">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ornare cursus odio non egestas. Praesent a orci purus. Aenean maximus in nisi vitae efficitur.
+        </p>
+    </section>
+
+    <!-- Imagens -->
+    <section class="images-section">
+        <h2>Imagens</h2>
+        <div class="image-grid">
+            <img src="src/exames/001.jpg" alt="Exame 1" class="thumbnail" onclick="expandImage(this)">
+            <img src="src/exames/001.jpg" alt="Exame 1" class="thumbnail" onclick="expandImage(this)">
+            <img src="src//exames/002.png" alt="Exame 3" class="thumbnail" onclick="expandImage(this)">
+            <img src="src/exames/003.webp" alt="Exame 4" class="thumbnail" onclick="expandImage(this)">
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="divider-image">
+        <img src="src/images/footer.png" alt="Divisória">
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>Yaso Saúde Digital © 2024 Todos os direitos reservados.</p>
+            <div class="social-icons">
+                <a href="#"><img src="src/icon/twitter.png" alt="X"></a>
+                <a href="#"><img src="src/icon/instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="src/icon/facebook.png" alt="Facebook"></a>
+                <a href="https://youtu.be/Z1GFhgCzrBw?si=0oRoNFsxac531-Ne"><img src="src/icon/youtube.png" alt="Youtube"></a>
+                <a href="https://github.com/RenatoRussano/YASO-IC2024.git"><img src="src/icon/github.png" alt="Github"></a>
+                <a href="https://www.figma.com/proto/ZyVEqYGHFrJyCNAk0Aigaq/Yaso---Nova-vers%C3%A3o?node-id=1-5&node-type=canvas&t=zEGt2DMKv1D8arb5-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1"><img src="src/icon/figma.png" alt="Figma"></a>
+                <a href="https://drive.google.com/file/d/1Jts8BO5N7sjQJia5AzpK5biGhCjoYHYb/view?usp=sharing"><img src="src/icon/document.png" alt="Document"></a>
+                <a href="https://trello.com/invite/b/663487441f2ca036ebe2d8c7/ATTIb3bfd1343e59dfa47cffefddd3263bd26F43D0BB/yaso-saude"><img src="src/icon/trello.png" alt="Trello"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="exame.js"></script>
+
+</body>
+</html>

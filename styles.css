@@ -1,0 +1,271 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    width: 100%; /* A navbar ocupa toda a largura da página */
+    background-color: #f5f5f5;
+    padding: 20px 0;
+}
+
+.navbar .navbar-inner {
+    width: 70%; /* O conteúdo da navbar ocupa 70% */
+    margin: 0 auto; /* Centraliza o conteúdo */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    width: 90px;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Garante espaçamento uniforme entre os itens */
+    flex-grow: 1; /* Faz com que os itens cresçam igualmente */
+}
+
+.navbar ul li {
+    margin: 0 20px; /* Controle adicional de espaçamento, se necessário */
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.navbar ul li .button {
+    background-color: #6030A0;
+    color: #fff;
+    padding: 10px 50px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+/* Efeito hover */
+.navbar ul li a:hover {
+    background-color: #6030A0; /* Altera o fundo ao passar o mouse */
+    color: white; /* Muda a cor do texto ao passar o mouse */
+    padding: 10px 50px;
+    border-radius: 50px; /* Adiciona bordas arredondadas */
+    border-bottom: 3px solid #333; /* Adiciona uma linha inferior */
+}
+
+/* Botão de "Entrar" */
+.navbar ul li .button {
+    background-color: #6030A0;
+    color: #fff;
+    padding: 10px 50px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.navbar ul li .button:hover {
+    background-color: #8840e0; /* Altera a cor de fundo no hover */
+    border-radius: 20px;
+    padding: 10px 50px;
+}
+
+/* Search Bar Style */
+.search-bar {
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    width: 150px;
+    transition: width 0.4s ease-in-out;
+}
+
+.search-bar:focus {
+    width: 250px; /* Expande ao focar */
+}
+
+/* Hero Section */
+.hero {
+    background-image: url('src/images/fotogeral4.jpg'); /* Caminho da imagem de fundo */
+    background-size: cover; /* Faz com que a imagem cubra toda a área */
+    background-position: center; /* Centraliza a imagem */
+    color: #6030A0; /* Texto em branco para contraste com a imagem */
+    padding: 100px 20px; /* Espaçamento interno */
+    text-align: center; /* Centraliza o texto */
+    position: relative; /* Para sobrepor conteúdo adicional, se necessário */
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    padding: 15px 60px;
+    background-color: #6030A0;
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+/* Serviços Yaso */
+.services {
+    padding: 50px 20px;
+    width: 70%;
+    margin: 0 auto; /* Centraliza o conteúdo */
+    text-align: center;
+}
+
+.services h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #6030A0;;
+}
+
+.service-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.card h3 {
+    font-size: 24px;
+    margin: 15px 0;
+}
+
+.card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.card-button {
+    padding: 10px 20px;
+    background-color: #6030A0;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+/* Accordion */
+.accordion {
+    width: 70%;
+    margin: 50px auto;
+}
+
+.accordion-item {
+    margin-bottom: 15px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.accordion-header span {
+    color: #5c48d3;
+}
+
+.accordion-content {
+    display: none;
+    padding-top: 10px;
+    font-size: 16px;
+}
+
+
+/* Divider Image */
+.divider-image {
+    text-align: center;
+    margin: 0; /* Remove a margem ao redor da imagem */
+    padding: 0; /* Remove o padding ao redor da imagem */
+}
+
+.divider-image img {
+    width: 100%;
+    object-fit: cover;
+    display: block; /* Remove espaçamentos ao transformar a imagem em um elemento de bloco */
+}
+
+/* Footer */
+footer {
+    background-color: #6030A0;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.footer-content p {
+    margin-bottom: 20px;
+}
+
+.social-icons a {
+    margin: 0 10px;
+    display: inline-block;
+}
+
+.social-icons img {
+    width: 30px;
+}
+
+/* Estilizando a barra de rolagem para navegadores Webkit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem */
+    border-radius: 10px; /* Aplica border-radius à barra de rolagem */
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f5f5; /* Cor do fundo da trilha da barra */
+    border-radius: 10px; /* Aplica border-radius ao track */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #6030A0; /* Cor da barra de rolagem */
+    border-radius: 10px; /* Arredonda os cantos da barra */
+    border: 10px solid #f5f5f5; /* Adiciona uma borda para destacar */
+}
+
+/* Para navegadores Firefox */
+html {
+    scrollbar-color: #6030A0 #f5f5f5; /* Cor da barra de rolagem e do fundo da trilha */
+    scrollbar-width: thin; /* Define a largura da barra de rolagem */
+}

@@ -1,0 +1,176 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+    overflow-y: scroll; /* Garantir que a barra de rolagem sempre esteja visível */
+}
+
+/* Navbar */
+.navbar {
+    width: 100%;
+    background-color: #f5f5f5;
+    padding: 20px 0;
+}
+
+.navbar .navbar-inner {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    width: 90px;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.navbar ul li {
+    margin: 0 20px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-bottom 0.3s ease;
+}
+
+/* Search Bar Style */
+.search-bar {
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    width: 150px;
+    transition: width 0.4s ease-in-out;
+}
+
+.search-bar:focus {
+    width: 250px; /* Expande ao focar */
+}
+
+/* Login Section */
+.login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 250px); /* Altura total da tela menos o espaço do navbar e do footer */
+    padding: 20px 0;
+}
+
+.login-container {
+    text-align: center;
+    padding: 40px 50px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.login-container h1 {
+    color: #6030A0;
+    margin-bottom: 30px;
+}
+
+.login-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.forgot-password {
+    display: block;
+    margin: 10px 0 20px;
+    color: #6030A0;
+    text-decoration: none;
+}
+
+.login-button {
+    text-decoration: none; /* Remove o sublinhado */
+    display: inline-block; /* Faz com que o link se comporte como um botão */
+    padding: 15px 50px;
+    background-color: #6030A0;
+    color: white;
+    border-radius: 50px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #8840e0;
+}
+
+/* Divider Image */
+.divider-image {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.divider-image img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Footer */
+footer {
+    background-color: #6030A0;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.footer-content p {
+    margin-bottom: 20px;
+}
+
+.social-icons a {
+    margin: 0 10px;
+    display: inline-block;
+}
+
+.social-icons img {
+    width: 30px;
+}
+
+/* Estilizando a barra de rolagem para navegadores Webkit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #6030A0;
+    border-radius: 5px;
+    border: 2px solid #f5f5f5;
+}
+
+/* Para navegadores Firefox */
+html {
+    scrollbar-color: #6030A0 #f5f5f5;
+    scrollbar-width: thin;
+}

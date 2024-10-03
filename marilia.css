@@ -1,0 +1,346 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+    overflow-y: scroll;
+}
+
+/* Navbar */
+.navbar {
+    width: 100%;
+    background-color: #f5f5f5;
+    padding: 20px 0;
+}
+
+.navbar .navbar-inner {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    width: 90px;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.navbar ul li {
+    margin: 0 20px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-bottom 0.3s ease;
+}
+
+/* Imagem circular do perfil da Dra. Marília */
+.profile-link {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Search Bar Style */
+.search-bar {
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    width: 150px;
+    transition: width 0.4s ease-in-out;
+}
+
+.search-bar:focus {
+    width: 250px;
+}
+
+/* Perfil Section */
+.profile-section {
+    padding: 50px 20px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.profile-info {
+    max-width: 600px;
+}
+
+.profile-info h2 {
+    font-size: 28px;
+    color: #6030A0;
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* Consultas Section */
+.consultas-section, .exames-section, .medicamentos-section, .vacinas-section, .alergias-section, .cirurgias-section, .dados-gerais-section {
+    margin-bottom: 40px;
+}
+
+.consultas-section h2, .exames-section h2, .medicamentos-section h2, .vacinas-section h2, .alergias-section h2, .cirurgias-section h2, .dados-gerais-section h2 {
+    font-size: 24px;
+    color: #6030A0;
+    margin-bottom: 20px;
+}
+
+.consultas-list, .exames-list {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.consulta-item, .exame-item {
+    margin-bottom: 20px;
+}
+
+.consulta-item span, .exame-item span {
+    display: block;
+    font-weight: bold;
+    color: #6030A0;
+    margin-bottom: 5px;
+}
+
+.consulta-item p, .exame-item p {
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.consulta-item a, .exame-item a, .solicitar-acesso {
+    color: #6030A0;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px 10px;
+    border: 1px solid #6030A0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.consulta-item a:hover, .exame-item a:hover, .solicitar-acesso:hover {
+    background-color: #6030A0;
+    color: #fff;
+}
+
+/* Medicamentos Section */
+.medicamento-item {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.medicamento-item span {
+    font-weight: bold;
+    color: #6030A0;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.medicamento-item a {
+    color: #6030A0;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px 10px;
+    border: 1px solid #6030A0;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.medicamento-item a:hover {
+    background-color: #6030A0;
+    color: #fff;
+}
+
+/* Dados Gerais Section */
+.dados-gerais-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.dados-gerais-section ul li {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+/* Pop-up Overlay */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Pop-up Content */
+.popup-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+
+/* Icone do Pop-up */
+.popup-icon img {
+    width: 50px;
+    margin-bottom: 20px;
+}
+
+/* Botão Fechar */
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Título e Mensagem */
+.popup-content h2 {
+    color: #6030A0;
+    margin-bottom: 10px;
+}
+
+.popup-content p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Barra de Progresso */
+.progress-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    height: 8px;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: #6030A0;
+    width: 0;
+    border-radius: 5px;
+}
+
+/* Botão de Token */
+.token-button {
+    background-color: #6030A0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.token-button:hover {
+    background-color: #8840e0;
+}
+
+/* Divider Image */
+.divider-image {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.divider-image img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Footer */
+footer {
+    background-color: #6030A0;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.footer-content p {
+    margin-bottom: 20px;
+}
+
+.social-icons a {
+    margin: 0 10px;
+    display: inline-block;
+}
+
+.social-icons img {
+    width: 30px;
+}
+
+/* Estilizando a barra de rolagem para navegadores Webkit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #6030A0;
+    border-radius: 5px;
+    border: 2px solid #f5f5f5;
+}
+
+/* Para navegadores Firefox */
+html {
+    scrollbar-color: #6030A0 #f5f5f5;
+    scrollbar-width: thin;
+}
