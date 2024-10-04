@@ -23,6 +23,8 @@ export default function AdicionarConsultaScreen({ navigation, route }) {
   const [contato, setContato] = useState('');
   const [observacoes, setObservacoes] = useState('');
   const [imagem, setImagem] = useState(null);
+  const [ocrResultado, setOcrResultado] = useState(''); // Estado para o resultado do OCR
+
 
   useEffect(() => {
     if (route.params?.item) {
@@ -39,23 +41,15 @@ export default function AdicionarConsultaScreen({ navigation, route }) {
     }
   }, [route.params?.item]);
 
-  const pickImage = async () => {
-    const { status } = await ImagePicker.requestCameraPermissionsAsync();
-    if (status !== 'granted') {
-      alert('Desculpe, precisamos da permissão da câmera para isso funcionar!');
-      return;
-    }
+  const pickImage = () => {
+  navigation.navigate('CameraScreen', {
+    onImageTaken: (imageUri, ocrText) => {
+      setImagem(imageUri);
+      setOcrResultado(ocrText); // Salva o resultado do OCR no estado
+    },
+  });
+};
 
-    const result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: false,
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      setImagem(result.assets[0].uri);
-    }
-  };
 
   const salvarConsulta = () => {
     if (nome && categoria && consultorio && data && hora) {
@@ -168,7 +162,24 @@ export default function AdicionarConsultaScreen({ navigation, route }) {
           <Text style={styles.imagePickerText}> Tirar Foto</Text>
         </TouchableOpacity>
 
-        {imagem && <Image source={{ uri: imagem }} style={styles.image} />}
+       {imagem && (
+  <>
+    <Image source={{ uri: imagem }} style={styles.image} />
+    {ocrResultado ? (
+      <View style={styles.ocrContainer}>
+        <Text style={styles.ocrLabel}>Texto extraído:</Text>
+        <View style={styles.separator} />
+        <Text style={styles.ocrText}>
+          "{ocrResultado}"
+        </Text>
+        {/* Linha de separação */}
+        
+      </View>
+    ) : null}
+  </>
+)}
+
+
 
         <TouchableOpacity style={styles.saveButton} onPress={salvarConsulta}>
           <Text style={styles.saveButtonText}>salvar</Text>
@@ -259,4 +270,30 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  ocrContainer: {
+    backgroundColor: '#EDE7F6', // Um fundo leve roxo
+    borderRadius: 10, // Bordas arredondadas
+    padding: 15, // Espaçamento interno
+    marginTop: 10, // Margem superior para separação da imagem
+    alignItems: 'center', // Centralizar conteúdo
+  },
+  ocrLabel: {
+    fontSize: 18, // Tamanho do texto do rótulo
+    color: 'purple', // Cor roxa para o rótulo
+    fontWeight: 'bold', // Peso da fonte em negrito
+    marginBottom: 5, // Margem inferior para separar do texto extraído
+  },
+  ocrText: {
+    fontSize: 16, // Tamanho de texto padrão
+    color: '#333', // Cor escura para o texto extraído
+    lineHeight: 22, // Altura da linha para melhorar a legibilidade
+    textAlign: 'center', // Centralizar o texto
+  },
+  separator: {
+    height: 1, // Altura da linha
+    backgroundColor: '#D1C4E9', // Cor da linha (um tom mais claro do roxo)
+    marginVertical: 10, // Espaçamento vertical para separar a linha do texto
+    width: '100%', // Largura total
+  },
+
 });

@@ -15,6 +15,7 @@ import AdicionarExameScreen from './screens/AdicionarExameScreen';
 import AdicionarConsultaScreen from './screens/AdicionarConsultaScreen';
 import AdicionarVacinaScreen from './screens/AdicionarVacinaScreen';
 import EmergenciaScreen from './screens/EmergenciaScreen'; 
+import CameraScreen from './screens/CameraScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ export default function App() {
           <Stack.Screen name="AdicionarVacina" component={AdicionarVacinaScreen} />
           <Stack.Screen name="Perfil" component={PerfilScreen} />
           <Stack.Screen name="Emergencia" component={EmergenciaScreen} /> 
+          <Stack.Screen name="CameraScreen" component={CameraScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ProfileProvider>
