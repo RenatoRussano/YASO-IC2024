@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, CheckBox, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';  
-import { loginUser } from '../api/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
@@ -13,12 +14,30 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      const result = await loginUser(username, password);
-      console.log('Login bem-sucedido:', result);
-
+      const response = await fetch('https://yaso.azurewebsites.net/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: username, 
+          password: password,
+        }),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        await AsyncStorage.setItem('token', data.token);
+        console.log('Redirecionando para Home');
+        navigation.navigate('Home'); 
+      } else if (response.status === 400) {
+        setErrorMessage('Usuário ou senha incorretos');
+      } else {
+        setErrorMessage('Erro desconhecido ao fazer login');
+      }
     } catch (error) {
-      console.error('Erro no login:', error.message);
-      setErrorMessage(error.message);
+      console.error('Erro ao fazer login:', error);
+      setErrorMessage('Erro ao conectar-se ao servidor');
     }
   };
 
