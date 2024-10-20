@@ -1,5 +1,11 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Image,
+} from 'react-native';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -8,14 +14,12 @@ export default function HomeScreen({ navigation }) {
     <View style={styles.container}>
       <Header />
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        
-        {/* Sessão Meu Yaso */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Meu Yaso</Text>
           <View style={styles.separator} />
-          <TouchableOpacity 
-            style={styles.card} 
-            onPress={() => navigation.navigate('Emergencia')}> 
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => navigation.navigate('Emergencia')}>
             <View style={styles.cardHeader}>
               <Text style={styles.cardTitle}>Marília Climeni Romeu</Text>
               <Text style={styles.cardDate}>01 / 11 / 2023</Text>
@@ -26,7 +30,6 @@ export default function HomeScreen({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        {/* Sessão Médicos Registrados */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Médicos responsáveis</Text>
           <View style={styles.separator} />
@@ -51,7 +54,6 @@ export default function HomeScreen({ navigation }) {
           </View>
         </View>
 
-        {/* Sessão Próximas Consultas */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Próximas consultas</Text>
           <View style={styles.separator} />
@@ -66,14 +68,18 @@ export default function HomeScreen({ navigation }) {
                     source={{ uri: 'https://i.ibb.co/z687T6N/pin-1.png' }}
                     style={styles.smallIcon}
                   />
-                  <Text style={styles.cardSubtitleUnderline}>Delboni Aureliano Itaim</Text>
+                  <Text style={styles.cardSubtitleUnderline}>
+                    Delboni Aureliano Itaim
+                  </Text>
                 </View>
                 <View style={styles.inlineTextIcon}>
                   <Image
                     source={{ uri: 'https://i.ibb.co/GQq4BW2/clock.png' }}
                     style={styles.smallIcon}
                   />
-                  <Text style={styles.cardSmallText}>26 / 10 / 2024 - 08:30</Text>
+                  <Text style={styles.cardSmallText}>
+                    26 / 10 / 2024 - 08:30
+                  </Text>
                 </View>
               </View>
               <View style={styles.cardIcons}>
@@ -90,31 +96,28 @@ export default function HomeScreen({ navigation }) {
           </View>
         </View>
 
-        {/* Sessão Outros Acessos */}
-          <Text style={styles.sectionTitle}>Minha família</Text>
-          <View style={styles.separator} />
-          <View style={styles.card}>
-            <View style={styles.cardHeader}>
-              <Text style={styles.cardTitle}>Lilian Martins Oliveira</Text>
+        <Text style={styles.sectionTitle}>Minha família</Text>
+        <View style={styles.separator} />
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.cardTitle}>Lilian Martins Oliveira</Text>
+          </View>
+          <View style={styles.cardContent}>
+            <Image
+              source={{ uri: 'https://clinicammdc.com/images/pediatra.jpg' }}
+              style={styles.cardImage}
+            />
+            <View style={styles.cardDetails}>
+              <Text style={styles.cardSubtitle}>Y24.36.25.83151</Text>
             </View>
-            <View style={styles.cardContent}>
-              <Image
-                source={{ uri: 'https://clinicammdc.com/images/pediatra.jpg' }}
-                style={styles.cardImage}
-              />
-              <View style={styles.cardDetails}>
-                <Text style={styles.cardSubtitle}>Y24.36.25.83151</Text>
-              </View>
-              <Image
-                source={{ uri: 'https://i.ibb.co/c362TY6/entalhe-movel.png' }}
-                style={styles.cardIcon}
-              />
-            </View>
-
+            <Image
+              source={{ uri: 'https://i.ibb.co/c362TY6/entalhe-movel.png' }}
+              style={styles.cardIcon}
+            />
+          </View>
         </View>
-
       </ScrollView>
-       {/*<Footer />*/}
+      <Footer />
     </View>
   );
 }
@@ -129,17 +132,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   section: {
-    marginBottom: 15, 
+    marginBottom: 15,
   },
   separator: {
     height: 1,
     backgroundColor: '#D3D3D3',
-    marginVertical: 5, 
+    marginVertical: 5,
   },
   sectionTitle: {
     fontSize: 14,
     color: '#000000',
-    marginBottom: 1, 
+    marginBottom: 1,
     fontWeight: '300',
   },
   card: {
@@ -149,7 +152,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   cardHeader: {
-
     backgroundColor: '#6433A2',
     padding: 5,
     flexDirection: 'row',
@@ -208,20 +210,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: '100%',
   },
-  accessButton: {
-    backgroundColor: '#b098d0',
-    borderRadius: 50,
-    paddingVertical: 12,
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  accessButtonText: {
-    fontSize: 14,
-    color: '#FFFFFF',
-  },
-  clearButton: {
-    backgroundColor: '#FF6347', 
-  },
+
   inlineTextIcon: {
     flexDirection: 'row',
     alignItems: 'center',

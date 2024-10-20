@@ -5,6 +5,7 @@ import LoginScreen from './src/screens/LoginScreen';
 import TermsScreen from './src/screens/TermsScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import EmergencyScreen from './src/screens/EmergencyScreen'; 
+import AdicionarVacinaScreen from './src/screens/AdicionarVacinaScreen';
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,12 @@ export default function App() {
         <Stack.Screen 
           name="Emergency" 
           component={EmergencyScreen} 
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen 
+          name="AdicionarVacina" 
+          component={AdicionarVacinaScreen} 
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
