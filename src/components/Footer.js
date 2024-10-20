@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, StyleSheet, Image } from 'react-native'; // Adicione o Image aqui
-
+import { useNavigation } from '@react-navigation/native';
 const Footer = () => {
+  const navigation = useNavigation(); 
   const [modalVisible, setModalVisible] = useState(false);
+  const [keyModalVisible, setKeyModalVisible] = useState(false);
+  const [homeModalVisible, setHomeModalVisible] = useState(false);
+  const [docModalVisible, setDocModalVisible] = useState(false);
+  const [medicalOptionsModalVisible, setMedicalOptionsModalVisible] = useState(false);
 
   const openConfigModal = () => {
     setModalVisible(true);
@@ -12,41 +17,80 @@ const Footer = () => {
     setModalVisible(false);
   };
 
+
+  const openKeyModal = () => {
+    setKeyModalVisible(true);
+  };
+
+  const closeKeyModal = () => {
+    setKeyModalVisible(false);
+  };
+
+
+  const openHomeModal = () => {
+    setHomeModalVisible(true);
+  };
+
+  const closeHomeModal = () => {
+    setHomeModalVisible(false); 
+  };
+
+    const openDocModal = () => {
+    setDocModalVisible(true);
+  };
+
+    const closeDocModal = () => {
+    setDocModalVisible(false);
+  };
+
+    const openMedicalOptionsModal = () => {
+    setMedicalOptionsModalVisible(true);
+  };
+
+  const closeMedicalOptionsModal = () => {
+    setMedicalOptionsModalVisible(false);
+  };
+
   return (
     <View style={styles.footer}>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={openMedicalOptionsModal}>
               <Image
-            source={{ uri: 'https://i.ibb.co/16GqcWc/pessoa.png' }} 
+            source={{ uri: 'https://i.ibb.co/16GqcWc/pessoa.png' }}
+             style={{ width: 30, height: 30 }}
         />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={openDocModal}>
       <Image
             source={{ uri: 'https://i.ibb.co/MGmJnMW/folha.png' }} 
+             style={{ width: 30, height: 30 }}
         />
       
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={openHomeModal}>
       <Image
             source={{ uri: 'https://i.ibb.co/T2Hn4zq/home.png' }} 
+            style={{ width: 40, height: 40 }}
         />
       
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={openKeyModal}>
         <Image
-            source={{ uri: 'https://i.ibb.co/HN1BGCy/chave.png' }} 
+            source={{ uri: 'https://i.ibb.co/HN1BGCy/chave.png' }}
+             style={{ width: 30, height: 30 }}
         />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.button} onPress={openConfigModal}>
       <Image
-            source={{ uri: 'https://i.ibb.co/XJPLLv6/menu-more.png' }} 
+            source={{ uri: 'https://i.ibb.co/XJPLLv6/menu-more.png' }}
+             style={{ width: 30, height: 30 }} 
         />
       </TouchableOpacity>
 
-      {/* Modal de Configurações */}
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -80,7 +124,131 @@ const Footer = () => {
           </View>
         </View>
       </Modal>
+
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={keyModalVisible}
+        onRequestClose={closeKeyModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity onPress={() => alert('Segurança')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Segurança</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Modo de emergência')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Modo de emergência</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Token de consentimento')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Token de consentimento</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Médicos associados')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Médicos associados</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Minha família')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Minha família</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={closeKeyModal} style={styles.closeButton}>
+              <Text style={styles.closeButtonText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={homeModalVisible}
+        onRequestClose={closeHomeModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity onPress={() => alert('Ler QR Code')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Ler QR Code</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('AdicionarVacina')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Adicionar vacina</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Adicionar alergias')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Adicionar alergias</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Adicionar medicamentos')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Adicionar medicamentos</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Adicionar exame')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Adicionar exame</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Adicionar consulta')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Adicionar consulta</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={closeHomeModal} style={styles.closeButton}>
+              <Text style={styles.closeButtonText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={docModalVisible}
+        onRequestClose={closeDocModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity onPress={() => alert('Exames')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Exames</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Documentos complementares')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Documentos complementares</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Consultas')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Consultas</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={closeDocModal} style={styles.closeButton}>
+              <Text style={styles.closeButtonText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={medicalOptionsModalVisible}
+        onRequestClose={closeMedicalOptionsModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity onPress={() => alert('Buscar médicos')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Buscar médicos</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Alergias')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Alergias</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Receitas médicas')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Receitas médicas</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Vacinas')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Vacinas</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('Procedimentos cirúrgicos')} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Procedimentos cirúrgicos</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={closeMedicalOptionsModal} style={styles.closeButton}>
+              <Text style={styles.closeButtonText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
     </View>
+
+    
   );
 };
 
@@ -93,8 +261,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#ddd',
     width: '100%',
-    position: 'absolute', 
-    bottom: 0,
+
   },
   button: {
     alignItems: 'center',

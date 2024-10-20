@@ -14,128 +14,162 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default function AdicionarVacinaScreen({ navigation, route }) {
-  const [nome, setNome] = useState('');
-  const [responsavel, setResponsavel] = useState('');
-  const [data, setData] = useState('');
-  const [comprovante, setComprovante] = useState(null);
-
-  useEffect(() => {
-    if (route.params?.item) {
-      const { nome, responsavel, data, comprovante } = route.params.item;
-      setNome(nome);
-      setResponsavel(responsavel);
-      setData(data);
-      setComprovante(comprovante);
-    }
-  }, [route.params?.item]);
-
-  // Pedido de permissão de mídia
-  useEffect(() => {
-    const getPermissions = async () => {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== 'granted') {
-        alert('Desculpe, precisamos da permissão para acessar suas fotos!');
+    const [nome, setNome] = useState('');
+    const [responsavel, setResponsavel] = useState('');
+    const [data, setData] = useState('');
+    const [comprovante, setComprovante] = useState(null);
+    const [titulo, setTitulo] = useState('');
+  
+    useEffect(() => {
+      if (route.params?.item) {
+        const { nome, responsavel, data, comprovante } = route.params.item;
+        setNome(nome);
+        setResponsavel(responsavel);
+        setData(data);
+        setComprovante(comprovante);
       }
-    };
-    getPermissions();
-  }, []);
+    }, [route.params?.item]);
+  
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      setComprovante(result.uri);
-    }
-  };
-
-  const salvarVacina = () => {
-    if (nome && data && hora) {
-      const newItem = {
-        nome,
-        responsavel,
-        data,
-        comprovante,
+    useEffect(() => {
+      const getPermissions = async () => {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Desculpe, precisamos da permissão para acessar suas fotos!');
+        }
       };
-      alert('CADASTRADO');
-      // Navegação opcional
-      //navigation.navigate('Vacinas', { newItem });
-    } else {
-      alert('Por favor, preencha todos os campos obrigatórios.');
-    }
-  };
+      getPermissions();
+    }, []);
+  
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+      
+        if (!result.canceled) {
+          const localUri = result.assets[0].uri;
+          setComprovante(localUri);
+        }
+      };
+      
+  
+      const salvarVacina = async () => {
+        if (nome && data && responsavel && comprovante) {
+          let formData = new FormData();
+          formData.append('nome', nome);
+          formData.append('dataAplicacao', data);
+          formData.append('titulo', titulo);
+          formData.append('responsavel', responsavel);
+          formData.append('idUsuario', 1);
+      
+          const localUri = comprovante; 
+          const filename = localUri.split('/').pop();
+          const match = /\.(\w+)$/.exec(filename); 
+          const fileType = match ? `image/${match[1]}` : `image`; 
+      
+        
+          formData.append('comprovante', {
+            uri: localUri, 
+            name: filename, 
+            type: fileType, 
+          });
+      
+          try {
+            const response = await fetch('http://localhost:8080/vacinas', {
+              method: 'POST',
+              body: formData,
+              headers: {
+                'Accept': 'application/json',
+              },
+            });
+      
+            if (response.ok) {
+              const data = await response.json();
+              Alert.alert('Sucesso', 'Vacina cadastrada com sucesso!');
+              navigation.navigate('Vacinas', { newItem: data });
+            } else {
+              const error = await response.json();
+              Alert.alert('Erro', error.message || 'Erro ao cadastrar vacina');
+            }
+          } catch (error) {
+            Alert.alert('Erro', 'Não foi possível cadastrar a vacina.');
+            console.error('Erro ao salvar vacina:', error);
+          }
+        } else {
+          alert('Por favor, preencha todos os campos obrigatórios.');
+        }
+      };
+      
+      
+    return (
+      <View style={styles.container}>
+        <Header />
+        <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+          <View style={styles.iconRow}>
+            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.iconButton}>
+              <Ionicons name="arrow-back" size={20} color="purple" />
+            </TouchableOpacity>
+          </View>
+  
+          <Text style={styles.sectionTitle}>adicionar uma nova vacina</Text>
+  
+          <Text style={styles.inputLabel}>Título (opcional)</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Digite o título"
+            value={titulo}
+            onChangeText={setTitulo}
+          />
+  
+          <Text style={styles.inputLabel}>Nome da vacina</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Digite o nome da vacina"
+            value={nome}
+            onChangeText={setNome}
+          />
+  
+          <View style={styles.row}>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Data</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="DD/MM/AAAA"
+                value={data}
+                onChangeText={setData}
+              />
+            </View>
+          </View>
+  
+          <Text style={styles.inputLabel}>Responsável pela aplicação</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Digite o responsável pela aplicação"
+            value={responsavel}
+            onChangeText={setResponsavel}
+          />
+  
+          <Text style={styles.inputLabel}>Foto do comprovante</Text>
+          <TouchableOpacity style={styles.imageContainer} onPress={pickImage}>
+            {comprovante ? (
+                <Image source={{ uri: comprovante }} style={styles.image} />
+            ) : (
+                <Ionicons name="camera" size={50} color="gray" />
+            )}
+            </TouchableOpacity>
 
-  return (
-    <View style={styles.container}>
-      <Header />
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        <View style={styles.iconRow}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.iconButton}>
-            <Ionicons name="arrow-back" size={20} color="purple" />
+  
+          <TouchableOpacity style={styles.saveButton} onPress={salvarVacina}>
+            <Text style={styles.saveButtonText}>Salvar</Text>
           </TouchableOpacity>
-        </View>
-
-        <Text style={styles.sectionTitle}>adicionar uma nova vacina</Text>
-
-        <Text style={styles.inputLabel}>Título (opcional)</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite o título"
-          value={nome}
-          onChangeText={setNome}
-        />
-
-        <Text style={styles.inputLabel}>Nome da vacina</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite o nome da vacina"
-          value={nome}
-          onChangeText={setNome}
-        />
-
-        <View style={styles.row}>
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>data</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="DD/MM/AAAA"
-              value={data}
-              onChangeText={setData}
-            />
-        </View>
-
-        <Text style={styles.inputLabel}>Responsável pela aplicação</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite o responsável pela aplicação"
-          value={responsavel}
-          onChangeText={setResponsavel}
-        />
-
-
-        </View>
-
-        <Text style={styles.inputLabel}>foto do comprovante</Text>
-        <TouchableOpacity style={styles.imageContainer} onPress={pickImage}>
-          {comprovante ? (
-            <Image source={{ uri: comprovante }} style={styles.image} />
-          ) : (
-            <Ionicons name="camera" size={50} color="gray" />
-          )}
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.saveButton} onPress={salvarVacina}>
-          <Text style={styles.saveButtonText}>salvar</Text>
-        </TouchableOpacity>
-      </ScrollView>
-      <Footer />
-    </View>
-  );
-}
+        </ScrollView>
+        <Footer />
+      </View>
+    );
+  }
 
 const styles = StyleSheet.create({
   container: {
