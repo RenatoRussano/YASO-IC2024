@@ -172,7 +172,7 @@ const Footer = () => {
             <TouchableOpacity onPress={() => navigation.navigate('AdicionarVacina')} style={styles.modalButton}>
               <Text style={styles.modalButtonText}>Adicionar vacina</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert('Adicionar alergias')} style={styles.modalButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('AdicionarAlergia')} style={styles.modalButton}>
               <Text style={styles.modalButtonText}>Adicionar alergias</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => alert('Adicionar medicamentos')} style={styles.modalButton}>
@@ -181,7 +181,7 @@ const Footer = () => {
             <TouchableOpacity onPress={() => alert('Adicionar exame')} style={styles.modalButton}>
               <Text style={styles.modalButtonText}>Adicionar exame</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert('Adicionar consulta')} style={styles.modalButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('AdicionarConsulta')} style={styles.modalButton}>
               <Text style={styles.modalButtonText}>Adicionar consulta</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={closeHomeModal} style={styles.closeButton}>
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#ddd',
     width: '100%',
-
+    // Remover position absolute
   },
   button: {
     alignItems: 'center',
