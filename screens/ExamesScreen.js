@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Modal, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Modal, Linking ,FlatList} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage'; 
-import Header from '../components/Header'; 
-import Footer from '../components/Footer'; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export default function ExamesScreen({ navigation, route }) {
   const [exames, setExames] = useState([]);
@@ -53,11 +53,9 @@ export default function ExamesScreen({ navigation, route }) {
       handleSave(route.params.newItem);
       navigation.setParams({ handled: true });
     }
-  }, [route.params?.newItem, handleSave]);
+  }, [route.params?.newItem, handleSave,navigation]);
 
-  const handleDownload = (uri) => {
-    Linking.openURL(uri);
-  };
+  
 
   const handleDelete = (id) => {
     const updatedExames = exames.filter(item => item.id !== id);
@@ -65,21 +63,10 @@ export default function ExamesScreen({ navigation, route }) {
     saveData(updatedExames);
   };
 
-  const renderUploads = (uploads) => {
-    return uploads.map((uri, index) => (
-      <View key={index} style={styles.uploadItem}>
-        {uri.endsWith('.pdf') ? (
-          <TouchableOpacity onPress={() => handleDownload(uri)}>
-            <Text>PDF: {uri.split('/').pop()}</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={() => setSelectedImage(uri)}>
-            <Image source={{ uri }} style={styles.thumbnail} />
-          </TouchableOpacity>
-        )}
-      </View>
-    ));
-  };
+  const renderUploads = ({ item }) => (
+    <Image source={{ uri: item.uri }} style={styles.foto} />
+  );
+
 
   return (
     <View style={styles.container}>
@@ -119,10 +106,16 @@ export default function ExamesScreen({ navigation, route }) {
             {expandedItem === item.id && (
               <View style={styles.itemContentContainer}>
                 <Text style={styles.itemContent}>
-                  {`Nome: ${item.nome}\nTipo: ${item.tipo}\nData: ${item.data}\nHora: ${item.hora}\nLocal: ${item.endereco}\nRelevante1: ${item.relevante1}\nRelevante2: ${item.relevante2}\nRelevante3: ${item.relevante3}\nRelevante4: ${item.relevante4}\nRelevante5: ${item.relevante5}\nRelevante6: ${item.relevante6}\nRelevante7: ${item.relevante7}\nRelevante8: ${item.relevante8}\nRelevante9: ${item.relevante9}\nRelevante10: ${item.relevante10}`}
+                  {`Nome: ${item.nome}\nTipo: ${item.tipo}\nData: ${item.data}\nHora: ${item.hora}\nLocal: ${item.endereco}\nRelevante1: ${item.relevante1}`}
                 </Text>
-                {item.uploads1 && renderUploads(item.uploads1)}
-                {item.uploads2 && renderUploads(item.uploads2)}
+                
+                            <FlatList
+                    data={item.fotosCapturadas}
+                    renderItem={renderUploads}
+                    keyExtractor={(foto, index) => index.toString()}
+                    horizontal
+                    style={styles.fotosContainer}
+                  />
               </View>
             )}
           </View>
@@ -175,14 +168,14 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 16,
-    fontWeight: '300', 
+    fontWeight: '300',
     color: 'purple',
     marginBottom: 10,
     marginTop: 20,
   },
   sectionTitleDown: {
     fontSize: 16,
-    fontWeight: '300', 
+    fontWeight: '300',
     color: 'purple',
     marginBottom: 10,
   },
@@ -246,18 +239,27 @@ const styles = StyleSheet.create({
   modalBackground: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.8)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'center', 
+    alignItems: 'center', 
   },
-  modalCloseButton: {
-    position: 'absolute',
-    top: 30,
-    right: 30,
-    zIndex: 1,
+  modalCloseButton: { 
+    position: 'absolute', 
+    top: 40, 
+    right: 20, 
+    zIndex: 1, 
   },
-  fullImage: {
-    width: '90%',
-    height: '70%',
-    resizeMode: 'contain',
+  fullImage: { 
+    width: '90%', 
+    height: '70%', 
+    resizeMode: 'contain', 
+  },
+  fotosContainer: {
+    marginTop: 10,
+  },
+  foto: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+    marginRight: 10,
   },
 });

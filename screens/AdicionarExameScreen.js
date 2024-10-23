@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   FlatList,
+  Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as DocumentPicker from 'expo-document-picker';
@@ -20,25 +21,17 @@ export default function AdicionarExameScreen({ navigation, route }) {
   const [hora, setHora] = useState('');
   const [endereco, setEndereco] = useState('');
   const [relevante1, setRelevante1] = useState('');
-  const [relevante2, setRelevante2] = useState('');
-  const [relevante3, setRelevante3] = useState('');
-  const [relevante4, setRelevante4] = useState('');
-  const [relevante5, setRelevante5] = useState('');
-  const [relevante6, setRelevante6] = useState('');
-  const [relevante7, setRelevante7] = useState('');
-  const [relevante8, setRelevante8] = useState('');
-  const [relevante9, setRelevante9] = useState('');
-  const [relevante10, setRelevante10] = useState('');
   const [uploads1, setUploads1] = useState([]);
   const [uploads2, setUploads2] = useState([]);
+  const [ocrResultado, setOcrResultado] = useState('');
+  const [fotosCapturadas, setFotosCapturadas] = useState([]);
+  const [fotoSelecionada, setFotoSelecionada] = useState(null);
 
   useEffect(() => {
     if (route.params?.item) {
       const {
         nome, tipo, data, hora, endereco,
-        relevante1, relevante2, relevante3, relevante4,
-        relevante5, relevante6, relevante7, relevante8,
-        relevante9, relevante10, uploads1, uploads2
+        relevante1, uploads1, uploads2, fotosCapturadas
       } = route.params.item;
 
       setNome(nome);
@@ -47,49 +40,37 @@ export default function AdicionarExameScreen({ navigation, route }) {
       setHora(hora);
       setEndereco(endereco);
       setRelevante1(relevante1);
-      setRelevante2(relevante2);
-      setRelevante3(relevante3);
-      setRelevante4(relevante4);
-      setRelevante5(relevante5);
-      setRelevante6(relevante6);
-      setRelevante7(relevante7);
-      setRelevante8(relevante8);
-      setRelevante9(relevante9);
-      setRelevante10(relevante10);
       setUploads1(uploads1 || []);
       setUploads2(uploads2 || []);
+      setFotosCapturadas(fotosCapturadas || []);
     }
   }, [route.params?.item]);
 
-
-  const pickDocument = async (setUploads) => {
-    const result = await DocumentPicker.getDocumentAsync({
-      type: ['image/*', 'application/pdf'],
-      multiple: true,
+  const pickImage = () => {
+    navigation.navigate('CameraScreen', {
+      onImageTaken: (imageUri, ocrText) => {
+        const newPhoto = { uri: imageUri, ocr: ocrText };
+        setFotosCapturadas(prevFotos => [...prevFotos, newPhoto]);
+      },
     });
-
-    if (result.type === 'success') {
-      const files = Array.isArray(result) ? result : [result];
-      setUploads(prevUploads => {
-        if (prevUploads.length + files.length <= 5) {
-          return [...prevUploads, ...files.map(file => ({
-            uri: file.uri,
-            name: file.name
-          }))];
-        } else {
-          alert('Você só pode adicionar até 5 arquivos.');
-          return prevUploads;
-        }
-      });
-    }
   };
 
-  const renderUploads = ({ item }) => (
-    <View style={styles.uploadItem}>
-      <Text>{item.name}</Text>
-    </View>
-  );
+  const handleFotoPress = (foto) => {
+    setFotoSelecionada(foto);
+    setOcrResultado(foto.ocr);
+  };
 
+  const fecharVisualizacao = () => {
+    setFotoSelecionada(null);
+    setOcrResultado('');
+  };
+
+  const excluirFoto = (foto) => {
+    setFotosCapturadas(fotosCapturadas.filter(f => f !== foto));
+    if (fotoSelecionada === foto) {
+      fecharVisualizacao();
+    }
+  };
 
   const salvarExame = () => {
     if (nome && tipo && data && hora) {
@@ -101,17 +82,9 @@ export default function AdicionarExameScreen({ navigation, route }) {
         hora,
         endereco,
         relevante1,
-        relevante2,
-        relevante3,
-        relevante4,
-        relevante5,
-        relevante6,
-        relevante7,
-        relevante8,
-        relevante9,
-        relevante10,
         uploads1,
         uploads2,
+        fotosCapturadas,
       };
       navigation.navigate('Exames', { newItem, isExame: true });
     } else {
@@ -119,12 +92,25 @@ export default function AdicionarExameScreen({ navigation, route }) {
     }
   };
 
+  const renderFoto = ({ item }) => (
+    <View style={styles.fotoItemContainer}>
+      <TouchableOpacity onPress={() => handleFotoPress(item)} style={styles.fotoContainer}>
+        <Image source={{ uri: item.uri }} style={styles.foto} />
+      </TouchableOpacity>
+      {/* Botão de lixeira para excluir a foto */}
+      <TouchableOpacity style={styles.excluirButton} onPress={() => excluirFoto(item)}>
+        <Ionicons name="trash" size={20} color="purple" />
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <Header />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}>
+        
         <View style={styles.iconRow}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
@@ -135,7 +121,8 @@ export default function AdicionarExameScreen({ navigation, route }) {
             <Ionicons name="search-outline" size={20} color="gray" />
           </TouchableOpacity>
         </View>
-        <Text style={styles.sectionTitle}>adicionar um novo exame</Text>
+        
+        <Text style={styles.sectionTitle}>Adicionar um novo exame</Text>
 
         <Text style={styles.inputLabel}>Nome do exame</Text>
         <TextInput
@@ -178,111 +165,47 @@ export default function AdicionarExameScreen({ navigation, route }) {
           multiline
         />
 
-        <Text style={styles.inputLabel}>Algum dado relevante sobre o exame</Text>
+        <Text style={styles.inputLabel}>Dados Relevantes</Text>
         <TextInput
           style={styles.input}
-          placeholder="e uma resposta aqui"
+          placeholder="Informações importantes"
           value={relevante1}
           onChangeText={setRelevante1}
         />
 
-        <Text style={styles.inputLabel}>Algum dado relevante sobre o exame</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e uma resposta aqui"
-          value={relevante2}
-          onChangeText={setRelevante2}
-        />
-
-        <Text style={styles.inputLabel}>Algum dado relevante sobre o exame</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e uma resposta aqui"
-          value={relevante3}
-          onChangeText={setRelevante3}
-        />
-
-        <Text style={styles.inputLabel}>Algum dado relevante sobre o exame</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e uma resposta aqui"
-          value={relevante4}
-          onChangeText={setRelevante4}
-        />
-
-        <Text style={styles.inputLabel}>Algum dado relevante sobre o exame</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e uma resposta aqui"
-          value={relevante5}
-          onChangeText={setRelevante5}
-        />
-
-        <Text style={styles.inputLabel}>Algum dado relevante sobre o exame</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e uma resposta aqui"
-          value={relevante6}
-          onChangeText={setRelevante6}
-        />
-
-        <Text style={styles.inputLabel}>Algum dado relevante sobre o exame</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e uma resposta aqui"
-          value={relevante7}
-          onChangeText={setRelevante7}
-        />
-
-        <Text style={styles.inputLabel}>Algum dado relevante sobre o exame</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e uma resposta aqui"
-          value={relevante8}
-          onChangeText={setRelevante8}
-        />
-
-        <Text style={styles.inputLabel}>Algum dado relevante sobre o exame</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e uma resposta aqui"
-          value={relevante9}
-          onChangeText={setRelevante9}
-        />
-
-        <Text style={styles.inputLabel}>Algum dado relevante sobre o exame</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e uma resposta aqui"
-          value={relevante10}
-          onChangeText={setRelevante10}
-        />
-
         <Text style={styles.inputLabel}>Pedido Médico</Text>
-        <TouchableOpacity style={styles.uploadButton} onPress={() => pickDocument(setUploads1)}>
+        <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
           <Ionicons name="cloud-upload-outline" size={24} color="white" />
           <Text style={styles.uploadButtonText}>Fazer Upload</Text>
         </TouchableOpacity>
+
+        {/* Exibir as fotos capturadas em pequenos quadrados */}
         <FlatList
-          data={uploads1}
-          renderItem={renderUploads}
+          data={fotosCapturadas}
+          renderItem={renderFoto}
           keyExtractor={(item, index) => index.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
+          style={styles.fotoList}
         />
 
-        <Text style={styles.inputLabel}>Resultados do Exame</Text>
-        <TouchableOpacity style={styles.uploadButton} onPress={() => pickDocument(setUploads2)}>
-          <Ionicons name="cloud-upload-outline" size={24} color="white" />
-          <Text style={styles.uploadButtonText}>Fazer Upload</Text>
-        </TouchableOpacity>
-        <FlatList
-          data={uploads2}
-          renderItem={renderUploads}
-          keyExtractor={(item, index) => index.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-      />
+        {fotoSelecionada && (
+          <View style={styles.visualizacaoContainer}>
+            <TouchableOpacity style={styles.fecharButton} onPress={fecharVisualizacao}>
+              <Ionicons name="close-circle" size={30} color="purple" />
+            </TouchableOpacity>
+            <Image source={{ uri: fotoSelecionada.uri }} style={styles.fotoGrande} />
+            {ocrResultado ? (
+              <View style={styles.ocrContainer}>
+                <Text style={styles.ocrLabel}>Texto extraído:</Text>
+                <View style={styles.separator} />
+                <Text style={styles.ocrText}>
+                  "{ocrResultado}"
+                </Text>
+              </View>
+            ) : null}
+          </View>
+        )}
 
         <TouchableOpacity style={styles.saveButton} onPress={salvarExame}>
           <Text style={styles.saveButtonText}>Salvar</Text>
@@ -351,16 +274,64 @@ const styles = StyleSheet.create({
     color: 'white',
     marginLeft: 10,
   },
-  uploadItem: {
+  fotoList: {
+    marginBottom: 15,
+  },
+  fotoItemContainer: {
     marginRight: 10,
+  },
+  fotoContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  foto: {
+    width: '100%',
+    height: '100%',
+  },
+  excluirButton: {
     alignItems: 'center',
+    marginTop: 5,
+  
+  },
+  visualizacaoContainer: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  fecharButton: {
+    alignSelf: 'flex-end',
+  },
+  fotoGrande: {
+    width: 300,
+    height: 300,
+    borderRadius: 10,
+    marginBottom: 15,
+  },
+  ocrContainer: {
+    marginTop: 10,
+  },
+  ocrLabel: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  separator: {
+    height: 1,
+    backgroundColor: 'purple',
+    width: '100%',
+    marginVertical: 10,
+  },
+  ocrText: {
+    fontSize: 14,
+    color: '#333',
+    textAlign: 'center',
   },
   saveButton: {
     backgroundColor: 'purple',
     borderRadius: 10,
     paddingVertical: 15,
-    justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 15,
   },
   saveButtonText: {
     color: 'white',

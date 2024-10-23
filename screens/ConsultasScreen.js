@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Modal,FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import Header from '../components/Header'; 
@@ -14,7 +14,11 @@ export default function ConsultasScreen({ navigation, route }) {
     const loadData = async () => {
       try {
         const storedConsultas = await AsyncStorage.getItem('@consultas');
-        if (storedConsultas) setConsultas(JSON.parse(storedConsultas));
+        if (storedConsultas) {
+          const parsedConsultas = JSON.parse(storedConsultas);
+          console.log("Consultas carregadas:", parsedConsultas); // Log para depuração
+          setConsultas(parsedConsultas);
+        }
       } catch (e) {
         console.error("Falha ao carregar dados do AsyncStorage", e);
       }
@@ -46,20 +50,15 @@ export default function ConsultasScreen({ navigation, route }) {
       saveData(updatedConsultas);
       return updatedConsultas;
     });
-  }, [consultas]);
+  }, []);
 
-  useEffect(() => {
-    if (route.params?.newItem && !route.params?.handled) {
-      handleSave(route.params.newItem);
-      navigation.setParams({ handled: true });
+   useEffect(() => {
+    if (route.params?.isConsulta && route.params?.newItem) {
+      const newConsulta = route.params.newItem;
+      setConsultas((prevConsultas) => [...prevConsultas, newConsulta]);
+      console.log("Nova consulta adicionada:", newConsulta); // Log para verificar
     }
-  }, [route.params?.newItem, handleSave]);
-
-  const handleDelete = (id) => {
-    const updatedConsultas = consultas.filter(item => item.id !== id);
-    setConsultas(updatedConsultas);
-    saveData(updatedConsultas);
-  };
+  }, [route.params?.newItem]);
 
   return (
     <View style={styles.container}>
@@ -80,7 +79,7 @@ export default function ConsultasScreen({ navigation, route }) {
             Caso precise encontrar uma consulta antiga ou atual, use o campo de pesquisa ou de filtro.
           </Text>
         </View>
-        {consultas.map((item) => (
+        {consultas.length > 0 ? consultas.map((item) => (
           <View key={item.id} style={styles.itemContainer}>
             <View style={styles.itemHeader}>
               <Text style={styles.itemTitle}>{item.nome}</Text>
@@ -109,7 +108,9 @@ export default function ConsultasScreen({ navigation, route }) {
               </View>
             )}
           </View>
-        ))}
+        )) : (
+          <Text style={styles.noConsultas}>Nenhuma consulta encontrada.</Text>
+        )}
       </ScrollView>
 
       <TouchableOpacity style={styles.fab} onPress={() => navigation.navigate('AdicionarConsulta')}>
@@ -230,13 +231,17 @@ const styles = StyleSheet.create({
   },
   modalCloseButton: {
     position: 'absolute',
-    top: 30,
-    right: 30,
-    zIndex: 1,
+    top: 50,
+    right: 20,
   },
   fullImage: {
     width: '90%',
-    height: '70%',
-    resizeMode: 'contain',
+    height: '90%',
+    borderRadius: 10,
+  },
+  noConsultas: {
+    textAlign: 'center',
+    marginTop: 20,
+    color: 'gray',
   },
 });
