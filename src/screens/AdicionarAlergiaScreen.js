@@ -103,16 +103,15 @@ export default function AdicionarAlergiaScreen({ navigation, route }) {
           onChangeText={setTipo}
         />
 
-        <View style={styles.row}>
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Escala da alergia</Text>
-            <TextInput
+
+        <Text style={styles.inputLabel}>Escala da alergia</Text>
+        <TextInput
               style={styles.input}
               placeholder="Digite a escala"
               value={escala}
               onChangeText={setEscala}
             />
-        </View>
+
 
         <Text style={styles.inputLabel}>Descrição da alergia</Text>
         <TextInput
@@ -130,8 +129,6 @@ export default function AdicionarAlergiaScreen({ navigation, route }) {
           onChangeText={setCuidado}
         />
 
-
-        </View>
 
         <Text style={styles.inputLabel}>foto da alergia</Text>
         <TouchableOpacity style={styles.imageContainer} onPress={pickImage}>

@@ -30,14 +30,12 @@ export default function AdicionarConsultaScreen({ navigation }) {
           placeholder="Digite a hora"
         />
 
-        <View style={styles.row}>
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Endereço da consulta</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Digite o endereço"
-            />
-        </View>
+        <Text style={styles.inputLabel}>Endereço da consulta</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Digite o endereço"
+        />
+
 
         <Text style={styles.inputLabel}>Médico da consulta</Text>
         <TextInput
@@ -68,7 +66,7 @@ export default function AdicionarConsultaScreen({ navigation }) {
           style={styles.input}
           placeholder="Digite a Descrição"
         />
-        </View>
+
 
       </ScrollView>
       <Footer />

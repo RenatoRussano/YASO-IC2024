@@ -175,10 +175,10 @@ const Footer = () => {
             <TouchableOpacity onPress={() => navigation.navigate('AdicionarAlergia')} style={styles.modalButton}>
               <Text style={styles.modalButtonText}>Adicionar alergias</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert('Adicionar medicamentos')} style={styles.modalButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('AdicionarMedicamento')} style={styles.modalButton}>
               <Text style={styles.modalButtonText}>Adicionar medicamentos</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert('Adicionar exame')} style={styles.modalButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('AdicionarExame')} style={styles.modalButton}>
               <Text style={styles.modalButtonText}>Adicionar exame</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('AdicionarConsulta')} style={styles.modalButton}>

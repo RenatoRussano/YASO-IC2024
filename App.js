@@ -8,6 +8,8 @@ import EmergencyScreen from './src/screens/EmergencyScreen';
 import AdicionarVacinaScreen from './src/screens/AdicionarVacinaScreen';
 import AdicionarAlergiaScreen from './src/screens/AdicionarAlergiaScreen';
 import AdicionarConsultaScreen from './src/screens/AdicionarConsultaScreen';
+import AdicionarExameScreen from './src/screens/AdicionarExameScreen';
+import AdicionarMedicamentoScreen from './src/screens/AdicionarMedicamentoScreen';
 
 const Stack = createStackNavigator();
 
@@ -55,6 +57,18 @@ export default function App() {
         <Stack.Screen 
           name="AdicionarConsulta" 
           component={AdicionarConsultaScreen} 
+          //options={{ headerShown: false }}
+        />
+
+       <Stack.Screen 
+          name="AdicionarExame" 
+          component={AdicionarExameScreen} 
+          //options={{ headerShown: false }}
+        />
+
+        <Stack.Screen 
+          name="AdicionarMedicamento" 
+          component={AdicionarMedicamentoScreen} 
           //options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,6 +9,7 @@ import {
   Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -38,14 +40,13 @@ export default function AdicionarExameScreen({ navigation}) {
           placeholder="Digite o tipo"
         />
 
-        <View style={styles.row}>
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Médico solicitante</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Digite o médico"
-            />
-        </View>
+ 
+        <Text style={styles.inputLabel}>Médico solicitante</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Digite o médico"
+        />
+
 
         <Text style={styles.inputLabel}>Descrição do exame</Text>
         <TextInput
@@ -53,7 +54,7 @@ export default function AdicionarExameScreen({ navigation}) {
           placeholder="Digite a descrição"
 
         />
-        </View>
+  
 
         <Text style={styles.inputLabel}>Imagens do exame</Text>
         <TouchableOpacity style={styles.imageContainer}>
@@ -61,7 +62,7 @@ export default function AdicionarExameScreen({ navigation}) {
             <Image  style={styles.image} />
         
             <Ionicons name="camera" size={50} color="gray" />
-          
+
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.saveButton}>
