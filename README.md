@@ -2,8 +2,6 @@
 
 **Detalhes que fazem a diferença.**
 
-![Yaso Banner](https://i.ibb.co/4MV9Y03/yaso-banner-github.png)
-
 [![Em Desenvolvimento](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)](https://github.com/seuusuario/seuprojeto)
 
 ---
