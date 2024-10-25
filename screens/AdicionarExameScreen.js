@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as DocumentPicker from 'expo-document-picker';
+import * as FileSystem from 'expo-file-system';
+import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -86,11 +88,65 @@ export default function AdicionarExameScreen({ navigation, route }) {
         uploads2,
         fotosCapturadas,
       };
+      salvarExameBD()
       navigation.navigate('Exames', { newItem, isExame: true });
+      
     } else {
       alert('Por favor, preencha todos os campos obrigatórios.');
     }
   };
+
+ const salvarExameBD = async () => {
+  if (nome && tipo && data && hora) {
+    try {
+      // Converter a imagem capturada para base64
+      const base64Image = await convertImageToBase64(fotosCapturadas[0]?.uri);
+
+      const newItem = {
+        nome_exame: nome,
+        tipo_exame: tipo,
+        medico_exame: "medico",  // Ajuste conforme seu formulário
+        descricao_exame: relevante1,  // Ajuste conforme seu formulário
+        file: base64Image,  // Envia a imagem em base64
+        super_id_usuario: 1  // Ajuste conforme seu formulário
+      };
+
+      // Use o IP local no lugar de 'localhost'
+      const apiURL = 'http://192.168.1.180:3000/upload-exame';
+
+      // Enviar os dados e a imagem para o backend
+      const response = await axios.post(apiURL, newItem, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status === 200) {
+        alert('Exame salvo com sucesso!');
+      } else {
+        alert('Erro ao salvar o exame: ' + response.data.error);
+      }
+    } catch (error) {
+      console.error("Erro ao salvar o exame: ", error);
+      alert('Erro ao salvar o exame. Verifique a conexão com o servidor.');
+    }
+  } else {
+    alert('Por favor, preencha todos os campos obrigatórios.');
+  }
+};
+
+// Função para converter imagem para base64
+const convertImageToBase64 = async (uri) => {
+  try {
+    const base64 = await FileSystem.readAsStringAsync(uri, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+    return base64;
+  } catch (error) {
+    console.error("Erro ao converter imagem para base64: ", error);
+  }
+};
+
 
   const renderFoto = ({ item }) => (
     <View style={styles.fotoItemContainer}>
@@ -309,17 +365,24 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   ocrContainer: {
-    marginTop: 10,
+    backgroundColor: '#EDE7F6', // Um fundo leve roxo
+    borderRadius: 10, // Bordas arredondadas
+    padding: 15, // Espaçamento interno
+    marginTop: 10, // Margem superior para separação da imagem
+    alignItems: 'center', // Centralizar conteúdo
   },
   ocrLabel: {
-    fontSize: 14,
-    fontWeight: 'bold',
+     fontSize: 18, // Tamanho do texto do rótulo
+    color: 'purple', // Cor roxa para o rótulo
+    fontWeight: 'bold', // Peso da fonte em negrito
+    marginBottom: 5, // Margem inferior para separar do texto extraído
+  
   },
   separator: {
-    height: 1,
-    backgroundColor: 'purple',
-    width: '100%',
-    marginVertical: 10,
+    height: 1, // Altura da linha
+    backgroundColor: '#D1C4E9', // Cor da linha (um tom mais claro do roxo)
+    marginVertical: 10, // Espaçamento vertical para separar a linha do texto
+    width: '100%', // Largura total
   },
   ocrText: {
     fontSize: 14,
